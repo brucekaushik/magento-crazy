@@ -90,10 +90,10 @@ if (file_exists($maintenanceFile)) {
 	$brlm .= '<br><br>';
 }
 
+require_once $mageFilename;
+
 fwrite($brl, $brlm);
 fclose($brl);
-
-require_once $mageFilename;
 
 #Varien_Profiler::enable();
 

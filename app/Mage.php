@@ -24,9 +24,21 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+$brlm .= "Start includes in Mage.php => ";
+$brlm .= "<div style='border: 1px solid black; padding: 10px; margin-bottom: 20px'>";
+
 define('DS', DIRECTORY_SEPARATOR);
 define('PS', PATH_SEPARATOR);
 define('BP', dirname(dirname(__FILE__)));
+
+$brlm .= 'DS is defined as DIRECTORY_SEPARATOR';
+$brlm .= '<br>';
+$brlm .= 'PS is defined as PATH_SEPARATOR';
+$brlm .= '<br>';
+$brlm .= 'BP is defined as the path (base path) => ' . dirname(dirname(__FILE__));
+$brlm .= '<br>';
+$brlm .= 'original_include_path => ' . get_include_path();
+$brlm .= '<br><br>';
 
 Mage::register('original_include_path', get_include_path());
 
