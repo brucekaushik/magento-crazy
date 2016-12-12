@@ -56,8 +56,23 @@ class Varien_Event_Collection
      */
     public function __construct()
     {
+    	global $brlm;
+    	$brlm .= opendiv;
+    	
+    	$brlm .= "FunctionCall => Varien_Event_Collection->__construct() => (start run)";
+    	$brlm .= doublebreak;
+    	
+    	$brlm .= 'events are stored in  $this->_events array'; 
+    	$brlm .= doublebreak;
+    	$brlm .= ' and global observers which are instance of Varien_Event_Observer_Collection are stored in $this->_globalObservers';
+    	$brlm .= doublebreak;
+    	
         $this->_events = array();
         $this->_globalObservers = new Varien_Event_Observer_Collection();
+        
+        $brlm .= "FunctionCall => Varien_Event_Collection->__construct() => (end run)";
+        $brlm .= doublebreak;
+        $brlm .= closediv;
     }
     
     /**

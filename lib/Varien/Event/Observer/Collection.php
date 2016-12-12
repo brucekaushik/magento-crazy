@@ -47,7 +47,20 @@ class Varien_Event_Observer_Collection
      */
     public function __construct()
     {
+    	global $brlm;
+    	$brlm .= opendiv;
+    	 
+    	$brlm .= "FunctionCall => Varien_Event_Observer_Collection->__construct() => (start run)";
+    	$brlm .= doublebreak;
+    	
+    	$brlm .= 'observers are stored in  $this->_observers array';
+    	$brlm .= doublebreak;
+    	
         $this->_observers = array();
+        
+        $brlm .= "FunctionCall => Varien_Event_Observer_Collection->__construct() => (end run)";
+        $brlm .= doublebreak;
+        $brlm .= closediv;
     }
     
     /**

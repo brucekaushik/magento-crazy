@@ -359,6 +359,21 @@ final class Mage
      */
     public static function setRoot($appRoot = '')
     {
+    	global $brlm;
+    	
+    	$brlm .= opendiv;
+    	
+    	$brlm .= "FunctionCall => Mage::setRoot() => (start run)";
+    	$brlm .= doublebreak;
+    	
+    	$brlm .= 'application root absolute path is set to the directory name containaing Mage.php 
+    			and stored in self::$_appRoot';
+    	$brlm .= doublebreak;
+    	
+    	$brlm .= "FunctionCall => Mage::setRoot() => (end run)";
+    	$brlm .= doublebreak;
+    	$brlm .= closediv;
+    	
         if (self::$_appRoot) {
             return ;
         }
@@ -768,18 +783,16 @@ final class Mage
     	
         try {
             Varien_Profiler::start('mage');
-            
-            $brlm .= "FunctionCall => Mage::run() => (end run)";
-            $brlm .= doublebreak;
-             
-            fwrite($brl, $brlm);
-            fclose($brl);
-            
             self::setRoot();
             
             if (isset($options['edition'])) {
                 self::$_currentEdition = $options['edition'];
             }
+            
+            $brlm .= 'A new instance of Mage_Core_Model_App() is instantiated (next line) 
+            		and stored in self::$_app';
+            $brlm .= doublebreak;
+            
             self::$_app    = new Mage_Core_Model_App();
             if (isset($options['request'])) {
                 self::$_app->setRequest($options['request']);
@@ -787,7 +800,22 @@ final class Mage
             if (isset($options['response'])) {
                 self::$_app->setResponse($options['response']);
             }
+            
+            $brlm .= 'A new instance of Varien_Event_Collection() is instantiated (next line)
+            		and stored in self::$_events';
+            $brlm .= doublebreak;
+            
+            $brlm .= 'self::$_events will be an object which store all the events, observers, global observers(?) collected';
+            $brlm .= doublebreak;
+            
             self::$_events = new Varien_Event_Collection();
+            
+            $brlm .= "FunctionCall => Mage::run() => (end run)";
+            $brlm .= doublebreak;
+            $brlm .= closediv;
+            fwrite($brl, $brlm);
+            fclose($brl);
+            
             self::_setIsInstalled($options);
             self::_setConfigModel($options);
             self::$_app->run(array(
