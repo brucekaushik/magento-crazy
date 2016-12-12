@@ -24,6 +24,13 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+define('opendiv', '<div style="border: 1px solid black; padding: 10px; margin-bottom: 20px">');
+define('singlebreak', '<br>');
+define('doublebreak', '<br><br>');
+define('closediv', '</div>');
+$brl = fopen('/var/www/html/magento-crazy/var/log/execution.html', 'w');
+$brlm = '';
+
 if (version_compare(phpversion(), '5.2.0', '<')===true) {
     echo  '<div style="font:12px/1.35em arial, helvetica, sans-serif;">
 <div style="margin:0 0 25px 0; border-bottom:1px solid #ccc;">
@@ -32,6 +39,9 @@ Whoops, it looks like you have an invalid PHP version.</h3></div><p>Magento supp
 <a href="http://www.magentocommerce.com/install" target="">Find out</a> how to install</a>
  Magento using PHP-CGI as a work-around.</p></div>';
     exit;
+} else {
+	$brlm .= 'php version looks fine => ' . phpversion();
+	$brlm .= '<br><br>';
 }
 
 /**
@@ -44,6 +54,9 @@ error_reporting(E_ALL | E_STRICT);
  */
 define('MAGENTO_ROOT', getcwd());
 
+$brlm .= 'MAGENTO_ROOT => ' . MAGENTO_ROOT;
+$brlm .= '<br><br>';
+
 $compilerConfig = MAGENTO_ROOT . '/includes/config.php';
 if (file_exists($compilerConfig)) {
     include $compilerConfig;
@@ -52,6 +65,11 @@ if (file_exists($compilerConfig)) {
 $mageFilename = MAGENTO_ROOT . '/app/Mage.php';
 $maintenanceFile = 'maintenance.flag';
 
+$brlm .= '$mageFilename => ' . $mageFilename;
+$brlm .= '<br><br>';
+$brlm .= '$maintenanceFile => ' . $maintenanceFile;
+$brlm .= '<br><br>';
+
 if (!file_exists($mageFilename)) {
     if (is_dir('downloader')) {
         header("Location: downloader");
@@ -59,12 +77,21 @@ if (!file_exists($mageFilename)) {
         echo $mageFilename." was not found";
     }
     exit;
+} else {
+	$brlm .= "not redirected to downloader path as \$mageFilename is found";
+	$brlm .= '<br><br>';
 }
 
 if (file_exists($maintenanceFile)) {
     include_once dirname(__FILE__) . '/errors/503.php';
     exit;
+} else {
+	$brlm .= "not showing error page as maintenanceFile is not found";
+	$brlm .= '<br><br>';
 }
+
+fwrite($brl, $brlm);
+fclose($brl);
 
 require_once $mageFilename;
 
