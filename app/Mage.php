@@ -258,9 +258,22 @@ final class Mage
     	$brlm .= 'Register a variable and store it in self::$_registry[$key] only once, 
     			if value is set already throw exception';
     	$brlm .= doublebreak;
+    	
     	$brlm .= 'key => ' . $key;
     	$brlm .= singlebreak;
-    	$brlm .= 'value => ' . $value;
+    	
+    	$value_type = gettype($value);
+    	
+    	$brlm .= 'value type => ' . $value_type;
+    	$brlm .= singlebreak;
+    	$brlm .= 'value registered => ';
+    	if ($value_type == 'string'){
+    		$brlm .= $value;
+    	} else if ($value_type == 'array'){
+    		$brlm .= var_export($value,true);
+    	} else if ($value_type == 'object'){
+    		@$brlm .= 'object of' . get_class($value_type);
+    	}
     	$brlm .= doublebreak;
     	
         if (isset(self::$_registry[$key])) {
@@ -311,7 +324,20 @@ final class Mage
     	$brlm .= doublebreak;
     	$brlm .= 'key => ' . $key;
     	$brlm .= singlebreak;
-    	$brlm .= 'value retrieved => ' . self::$_registry[$key];
+    	
+    	@$value = self::$_registry[$key];    	
+    	@$value_type = gettype($value);
+    	
+    	$brlm .= 'value type => ' . $value_type;
+    	$brlm .= singlebreak;
+    	$brlm .= 'value retrived => ';
+    	if ($value_type == 'string'){
+    		$brlm .= $value;
+    	} else if ($value_type == 'array'){
+    		$brlm .= var_export($value,true);
+    	} else if ($value_type == 'object'){
+    		@$brlm .= 'object of' . get_class($value_type);
+    	}
     	$brlm .= doublebreak;
     	
     	$brlm .= "FunctionCall => Mage::registry() => (end run)";
