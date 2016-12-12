@@ -71,7 +71,10 @@ class Varien_Profiler
     			and their output is stored in self::$_timers';
     	$brlm .= doublebreak;
     	
-        if (self::$_enabled) {
+        if (!self::$_enabled) {
+        	$brlm .= "FunctionCall => Varien_Profiler::resume() => (end run)";
+        	$brlm .= closediv;
+        	
             return;
         }
 
