@@ -61,7 +61,17 @@ class Varien_Profiler
 
     public static function resume($timerName)
     {
-        if (!self::$_enabled) {
+    	global $brlm;
+    	 
+    	$brlm .= opendiv;
+    	$brlm .= "FunctionCall => Varien_Profiler::resume() => (start run)";
+    	$brlm .= doublebreak;
+    	
+    	$brlm .= 'mem_get_usage(true) & mem_get_usage() are used 
+    			and their output is stored in self::$_timers';
+    	$brlm .= doublebreak;
+    	
+        if (self::$_enabled) {
             return;
         }
 
@@ -74,11 +84,23 @@ class Varien_Profiler
         }
         self::$_timers[$timerName]['start'] = microtime(true);
         self::$_timers[$timerName]['count'] ++;
+        
+        $brlm .= "FunctionCall => Varien_Profiler::resume() => (end run)";
+        $brlm .= closediv;
     }
 
     public static function start($timerName)
     {
+    	global $brlm;
+    	
+    	$brlm .= opendiv;
+    	$brlm .= "FunctionCall => Varien_Profiler::start() => (start run)";
+    	$brlm .= doublebreak;
+    	
         self::resume($timerName);
+        
+        $brlm .= "FunctionCall => Varien_Profiler::start() => (end run)";
+        $brlm .= closediv;
     }
 
     public static function pause($timerName)

@@ -116,7 +116,4 @@ $brlm .= singlebreak;
 $brlm .= '$mageRunType set to => ' . $mageRunType;
 $brlm .= doublebreak;
 
-fwrite($brl, $brlm);
-fclose($brl);
-
 Mage::run($mageRunCode, $mageRunType);

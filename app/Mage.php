@@ -758,9 +758,25 @@ final class Mage
      */
     public static function run($code = '', $type = 'store', $options = array())
     {
+    	global $brlm;
+    	global $brl;
+    	
+    	$brlm .= opendiv;
+    	 
+    	$brlm .= "FunctionCall => Mage::run() => (start run)";
+    	$brlm .= doublebreak;
+    	
         try {
             Varien_Profiler::start('mage');
+            
+            $brlm .= "FunctionCall => Mage::run() => (end run)";
+            $brlm .= doublebreak;
+             
+            fwrite($brl, $brlm);
+            fclose($brl);
+            
             self::setRoot();
+            
             if (isset($options['edition'])) {
                 self::$_currentEdition = $options['edition'];
             }
