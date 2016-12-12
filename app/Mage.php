@@ -48,6 +48,9 @@ if (defined('COMPILER_INCLUDE_PATH')) {
     include_once COMPILER_INCLUDE_PATH . DS . "Mage_Core_functions.php";
     include_once COMPILER_INCLUDE_PATH . DS . "Varien_Autoload.php";
 } else {
+	$brlm .= "COMPILER_INCLUDE_PATH not defined";
+	$brlm .= '<br><br>';
+	
     /**
      * Set include path
      */
@@ -58,8 +61,23 @@ if (defined('COMPILER_INCLUDE_PATH')) {
     $paths[] = BP . DS . 'lib';
 
     $appPath = implode(PS, $paths);
+    
+    $brlm .= '$appPath built, to pass to set_include_path function => ' . $appPath;
+    $brlm .= '<br><br>';
+    
     set_include_path($appPath . PS . Mage::registry('original_include_path'));
+    
+    $brlm .= '$appPath is appended with the value returned from above function call, and passed to set_include_path';
+    $brlm .= '<br><br>';
+    
+    $brlm .= 'included Mage/Core/functions.php (next line)';
+    $brlm .= '<br><br>';
+    
     include_once "Mage/Core/functions.php";
+    
+    $brlm .= 'included Varien/Autoload.php (next line)';
+    $brlm .= '<br><br>';
+    
     include_once "Varien/Autoload.php";
 }
 
@@ -228,6 +246,21 @@ final class Mage
      */
     public static function register($key, $value, $graceful = false)
     {
+    	global $brlm;
+    	
+    	$brlm .= opendiv;
+    	
+    	$brlm .= "FunctionCall => Mage::register() => (start run)";
+    	$brlm .= doublebreak;
+    	
+    	$brlm .= 'Register a variable and store it in self::$_registry[$key] only once, 
+    			if value is set already throw exception';
+    	$brlm .= doublebreak;
+    	$brlm .= 'key => ' . $key;
+    	$brlm .= singlebreak;
+    	$brlm .= 'value => ' . $value;
+    	$brlm .= doublebreak;
+    	
         if (isset(self::$_registry[$key])) {
             if ($graceful) {
                 return;
@@ -235,6 +268,11 @@ final class Mage
             self::throwException('Mage registry key "'.$key.'" already exists');
         }
         self::$_registry[$key] = $value;
+        
+        $brlm .= "FunctionCall => Mage::register() => (end run)";
+        $brlm .= doublebreak;
+        
+        $brlm .= closediv;
     }
 
     /**
@@ -260,6 +298,25 @@ final class Mage
      */
     public static function registry($key)
     {
+    	global $brlm;
+    	 
+    	$brlm .= opendiv;
+    	 
+    	$brlm .= "FunctionCall => Mage::registry() => (start run)";
+    	$brlm .= doublebreak;
+    	 
+    	$brlm .= 'Retrive value Mage::$_registry[$key]';
+    	$brlm .= doublebreak;
+    	$brlm .= 'key => ' . $key;
+    	$brlm .= singlebreak;
+    	$brlm .= 'value retrieved => ' . self::$_registry[$key];
+    	$brlm .= doublebreak;
+    	
+    	$brlm .= "FunctionCall => Mage::registry() => (end run)";
+    	$brlm .= doublebreak;
+    	
+    	$brlm .= closediv;
+    	
         if (isset(self::$_registry[$key])) {
             return self::$_registry[$key];
         }
