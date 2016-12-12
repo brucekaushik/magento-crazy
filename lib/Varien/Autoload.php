@@ -44,12 +44,27 @@ class Varien_Autoload
      */
     public function __construct()
     {
+    	global $brlm;
+    	 
+    	$brlm .= opendiv;
+    	 
+    	$brlm .= "FunctionCall => Varien_Autoload->__construct => (start run)";
+    	$brlm .= doublebreak;
+    	 
+    	$brlm .= 'Reigster scope(?) in self::$_scope through self::registerScope(self::$_scope) call';
+    	$brlm .= doublebreak;
+    	
         $this->_isIncludePathDefined = defined('COMPILER_INCLUDE_PATH');
         if (defined('COMPILER_COLLECT_PATH')) {
             $this->_collectClasses  = true;
             $this->_collectPath     = COMPILER_COLLECT_PATH;
         }
         self::registerScope(self::$_scope);
+        
+        $brlm .= "FunctionCall => Varien_Autoload->__construct => (end run)";
+        $brlm .= doublebreak;
+        
+        $brlm .= closediv;
     }
 
     /**
@@ -59,9 +74,25 @@ class Varien_Autoload
      */
     static public function instance()
     {
+    	global $brlm;
+    	
+    	$brlm .= opendiv;
+    	
+    	$brlm .= "FunctionCall => Varien_Autoload::instance() => (start run)";
+    	$brlm .= doublebreak;
+    	
+    	$brlm .= 'Store an instance of this class in self::$_instance if not exist and return it (singleton pattern)';
+    	$brlm .= doublebreak;
+    	
         if (!self::$_instance) {
             self::$_instance = new Varien_Autoload();
         }
+        
+        $brlm .= "FunctionCall => Varien_Autoload::instance() => (end run)";
+        $brlm .= doublebreak;
+        
+        $brlm .= closediv;
+        
         return self::$_instance;
     }
 
@@ -70,7 +101,22 @@ class Varien_Autoload
      */
     static public function register()
     {
+    	global $brlm;
+    	 
+    	$brlm .= opendiv;
+    	 
+    	$brlm .= "FunctionCall => Varien_Autoload::register() => (start run)";
+    	$brlm .= doublebreak;
+    	 
+    	$brlm .= 'Register autoload method of this class with spl_autoload_register';
+    	$brlm .= doublebreak;
+    	
         spl_autoload_register(array(self::instance(), 'autoload'));
+        
+        $brlm .= "FunctionCall => Varien_Autoload::register() => (end run)";
+        $brlm .= doublebreak;
+        
+        $brlm .= closediv;
     }
 
     /**
@@ -80,6 +126,13 @@ class Varien_Autoload
      */
     public function autoload($class)
     {
+    	global $brlm;
+    	
+    	$brlm .= opendiv;
+    	
+    	$brlm .= "FunctionCall => Varien_Autoload->autoload() => (start run)";
+    	$brlm .= doublebreak;
+    	
         if ($this->_collectClasses) {
             $this->_arrLoadedClasses[self::$_scope][] = $class;
         }
@@ -90,6 +143,15 @@ class Varien_Autoload
         }
         $classFile.= '.php';
         //echo $classFile;die();
+        
+        $brlm .= 'included => ' . $classFile;
+        $brlm .= doublebreak;
+        
+        $brlm .= "FunctionCall => Varien_Autoload->autoload() => (end run)";
+        $brlm .= doublebreak;
+        
+        $brlm .= closediv;
+        
         return include $classFile;
     }
 
@@ -102,10 +164,25 @@ class Varien_Autoload
      */
     static public function registerScope($code)
     {
+    	global $brlm;
+    	
+    	$brlm .= opendiv;
+    	
+    	$brlm .= "FunctionCall => Varien_Autoload::registerScope() => (start run)";
+    	$brlm .= doublebreak;
+    	
+    	$brlm .= 'self::$_scope set to => ' . $code;
+    	$brlm .= doublebreak;
+    	
         self::$_scope = $code;
         if (defined('COMPILER_INCLUDE_PATH')) {
             @include COMPILER_INCLUDE_PATH . DIRECTORY_SEPARATOR . self::SCOPE_FILE_PREFIX.$code.'.php';
         }
+        
+        $brlm .= "FunctionCall => Varien_Autoload::registerScope() => (end run)";
+        $brlm .= doublebreak;
+        
+        $brlm .= closediv;
     }
 
     /**
