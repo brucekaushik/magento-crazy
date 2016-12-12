@@ -92,9 +92,6 @@ if (file_exists($maintenanceFile)) {
 
 require_once $mageFilename;
 
-fwrite($brl, $brlm);
-fclose($brl);
-
 #Varien_Profiler::enable();
 
 if (isset($_SERVER['MAGE_IS_DEVELOPER_MODE'])) {
@@ -103,6 +100,9 @@ if (isset($_SERVER['MAGE_IS_DEVELOPER_MODE'])) {
 
 #ini_set('display_errors', 1);
 
+$brlm .= 'unmask set to 0';
+$brlm .= singlebreak;
+
 umask(0);
 
 /* Store or website code */
@@ -110,5 +110,13 @@ $mageRunCode = isset($_SERVER['MAGE_RUN_CODE']) ? $_SERVER['MAGE_RUN_CODE'] : ''
 
 /* Run store or run website */
 $mageRunType = isset($_SERVER['MAGE_RUN_TYPE']) ? $_SERVER['MAGE_RUN_TYPE'] : 'store';
+
+$brlm .= '$mageRunCode set to => ' . $mageRunCode;
+$brlm .= singlebreak;
+$brlm .= '$mageRunType set to => ' . $mageRunType;
+$brlm .= doublebreak;
+
+fwrite($brl, $brlm);
+fclose($brl);
 
 Mage::run($mageRunCode, $mageRunType);

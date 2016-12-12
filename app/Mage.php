@@ -83,6 +83,8 @@ if (defined('COMPILER_INCLUDE_PATH')) {
 
 Varien_Autoload::register();
 
+$brlm .= closediv;
+
 /**
  * Main Mage hub class
  *
