@@ -225,7 +225,21 @@ class Varien_Simplexml_Config
      */
     public function setCacheId($id)
     {
-        $this->_cacheId = $id;
+    	$this->_cacheId = $id;
+    	
+    	global $brlm;
+    	$brlm .= opendiv;
+    	$brlm .= "FunctionCall => Varien_Simplexml_Config->setCacheId() => (start run)";
+    	$brlm .= doublebreak;
+    	 
+    	$brlm .= '$this->_cacheId set to -> ' . $id;
+    	$brlm .= doublebreak;
+    	
+        
+        $brlm .= "FunctionCall => Varien_Simplexml_Config->setCacheId() => (end run)";
+        $brlm .= doublebreak;
+        $brlm .= closediv;
+        
         return $this;
     }
 

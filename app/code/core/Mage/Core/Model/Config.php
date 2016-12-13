@@ -196,11 +196,24 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      */
     public function __construct($sourceData=null)
     {
+    	global $brlm;
+    	$brlm .= opendiv;
+    	$brlm .= "FunctionCall => Mage_Core_Model_Config->__construct() => (start run)";
+    	$brlm .= doublebreak;
+    	
+    	$brlm .= 'core configuration class';
+    	$brlm .= doublebreak;
+    	
         $this->setCacheId('config_global');
+        
         $this->_options         = new Mage_Core_Model_Config_Options($sourceData);
         $this->_prototype       = new Mage_Core_Model_Config_Base();
         $this->_cacheChecksum   = null;
         parent::__construct($sourceData);
+        
+        $brlm .= "FunctionCall => Mage_Core_Model_Config->__construct() => (end run)";
+        $brlm .= doublebreak;
+        $brlm .= closediv;
     }
 
     /**
