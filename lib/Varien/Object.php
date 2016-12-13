@@ -33,8 +33,7 @@
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Varien_Object implements ArrayAccess
-{
-
+{	
     /**
      * Object attributes
      *
@@ -96,7 +95,12 @@ class Varien_Object implements ArrayAccess
      *
      */
     public function __construct()
-    {
+    {    	
+    	global $brlm;
+    	$brlm .= opendiv;
+    	$brlm .= "FunctionCall => Varien_Object->__construct() => (start run)";
+    	$brlm .= doublebreak;
+    	
         $this->_initOldFieldsMap();
         if ($this->_oldFieldsMap) {
             $this->_prepareSyncFieldsMap();
@@ -107,9 +111,19 @@ class Varien_Object implements ArrayAccess
             $args[0] = array();
         }
         $this->_data = $args[0];
+        
+       $brlm .= 'arguments are fetched by using function_get_args are stored in $this->_data,
+       		to debug and find out, place a breakpoint when required using class name,
+       		if not application will crash due to lack of memory';
+       $brlm .= doublebreak;
+        
         $this->_addFullNames();
 
         $this->_construct();
+        
+        $brlm .= "FunctionCall => Varien_Object->__construct() => (end run)";
+        $brlm .= doublebreak;
+        $brlm .= closediv;
     }
 
     protected function _addFullNames()
