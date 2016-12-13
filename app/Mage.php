@@ -773,11 +773,9 @@ final class Mage
      */
     public static function run($code = '', $type = 'store', $options = array())
     {
-    	global $brlm;
     	global $brl;
-    	
+    	global $brlm;
     	$brlm .= opendiv;
-    	 
     	$brlm .= "FunctionCall => Mage::run() => (start run)";
     	$brlm .= doublebreak;
     	
@@ -809,6 +807,8 @@ final class Mage
             $brlm .= doublebreak;
             
             self::$_events = new Varien_Event_Collection();
+            self::_setIsInstalled($options);
+            self::_setConfigModel($options);
             
             $brlm .= "FunctionCall => Mage::run() => (end run)";
             $brlm .= doublebreak;
@@ -816,8 +816,6 @@ final class Mage
             fwrite($brl, $brlm);
             fclose($brl);
             
-            self::_setIsInstalled($options);
-            self::_setConfigModel($options);
             self::$_app->run(array(
                 'scope_code' => $code,
                 'scope_type' => $type,
@@ -867,6 +865,14 @@ final class Mage
      */
     protected static function _setConfigModel($options = array())
     {
+    	global $brlm;
+    	$brlm .= opendiv;
+    	$brlm .= "FunctionCall => Mage::_setConfigModel() => (start run)";
+    	$brlm .= doublebreak;
+    	
+    	$brlm .= 'Set application Config model. We can use an alternative config model (?), if we want to';
+    	$brlm .= doublebreak;
+    	
         if (isset($options['config_model']) && class_exists($options['config_model'])) {
             $alternativeConfigModelName = $options['config_model'];
             unset($options['config_model']);
@@ -880,6 +886,10 @@ final class Mage
         } else {
             self::$_config = new Mage_Core_Model_Config($options);
         }
+        
+        $brlm .= "FunctionCall => Mage::_setConfigModel() => (end run)";
+        $brlm .= doublebreak;
+        $brlm .= closediv;
     }
 
     /**
