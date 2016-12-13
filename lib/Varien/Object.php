@@ -128,6 +128,11 @@ class Varien_Object implements ArrayAccess
 
     protected function _addFullNames()
     {
+    	global $brlm;
+    	$brlm .= opendiv;
+    	$brlm .= "FunctionCall => Varien_Object->_addFullNames() => (start run)";
+    	$brlm .= doublebreak;
+    	
         $existedShortKeys = array_intersect($this->_syncFieldsMap, array_keys($this->_data));
         if (!empty($existedShortKeys)) {
             foreach ($existedShortKeys as $key) {
@@ -135,6 +140,10 @@ class Varien_Object implements ArrayAccess
                 $this->_data[$fullFieldName] = $this->_data[$key];
             }
         }
+        
+        $brlm .= "FunctionCall => Varien_Object->_addFullNames() => (end run)";
+        $brlm .= doublebreak;
+        $brlm .= closediv;
     }
 
     /**
