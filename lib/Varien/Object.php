@@ -119,7 +119,7 @@ class Varien_Object implements ArrayAccess
         
         $this->_addFullNames();
 
-        $this->_construct();
+        $this->_construct(); // _construct called, useful for initialization
         
         $brlm .= "FunctionCall => Varien_Object->__construct() => (end run)";
         $brlm .= doublebreak;
