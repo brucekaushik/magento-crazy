@@ -70,6 +70,21 @@ class Mage_Core_Model_Config_Options extends Varien_Object
         $this->_data['session_dir'] = $this->_data['var_dir'].DS.'session';
         $this->_data['upload_dir']  = $this->_data['media_dir'].DS.'upload';
         $this->_data['export_dir']  = $this->_data['var_dir'].DS.'export';
+        
+        global $brlm;
+        $brlm .= opendiv;
+        $brlm .= "FunctionCall => Mage_Core_Model_Config_Options->_construct() => (start run)";
+        $brlm .= doublebreak;
+        
+        $brlm .= '$this->_data (array) populated => {<br>';
+        foreach ($this->_data as $itemkey => $itemval){
+        	$brlm .= "&nbsp;&nbsp;&nbsp; \$this->_data[$itemkey] => $itemval<br>";
+        }
+        $brlm .= '}' . doublebreak;
+        
+        $brlm .= "FunctionCall => Mage_Core_Model_Config_Options->_construct() => (end run)";
+        $brlm .= doublebreak;
+        $brlm .= closediv;
     }
 
     public function getDir($type)
