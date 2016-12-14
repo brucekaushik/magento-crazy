@@ -43,7 +43,16 @@ class Mage_Core_Model_Config_Base extends Varien_Simplexml_Config
      */
     public function __construct($sourceData=null)
     {
+    	global $brlm;
+    	$brlm .= opendiv;
+    	$brlm .= "FunctionCall => Mage_Core_Model_Config_Base->__construct() => (start run)";
+    	$brlm .= doublebreak;
+    	
         $this->_elementClass = 'Mage_Core_Model_Config_Element';
         parent::__construct($sourceData);
+        
+        $brlm .= "FunctionCall => Mage_Core_Model_Config_Base->__construct() => (end run)";
+        $brlm .= doublebreak;
+        $brlm .= closediv;
     }
 }

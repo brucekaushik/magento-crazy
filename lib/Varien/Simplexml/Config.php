@@ -108,7 +108,16 @@ class Varien_Simplexml_Config
      * @param string $sourceType
      */
     public function __construct($sourceData=null) {
+    	global $brlm;
+    	$brlm .= opendiv;
+    	$brlm .= "FunctionCall => Varien_Simplexml_Config->__construct() => (start run)";
+    	$brlm .= doublebreak;
+    	
         if (is_null($sourceData)) {
+        	$brlm .= "FunctionCall => Varien_Simplexml_Config->__construct() => (end run)";
+        	$brlm .= doublebreak;
+        	$brlm .= closediv;
+        	
             return;
         }
         if ($sourceData instanceof Varien_Simplexml_Element) {
@@ -122,6 +131,10 @@ class Varien_Simplexml_Config
         }
         #$this->setCache(new Varien_Simplexml_Config_Cache_File());
         #$this->getCache()->setConfig($this);
+        
+        $brlm .= "FunctionCall => Varien_Simplexml_Config->__construct() => (end run)";
+        $brlm .= doublebreak;
+        $brlm .= closediv;
     }
 
     /**
