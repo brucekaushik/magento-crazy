@@ -211,6 +211,13 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         $this->_cacheChecksum   = null;
         parent::__construct($sourceData);
         
+        $brlm .= 'so basically, Mage_Core_Model_Config will have $this->_options & $this->_prototype which will contain other objects, 
+        		enabling us to do configuration related operations';
+        $brlm .= doublebreak;
+        
+        $brlm .= 'this all will in turn be stored in Mage::$_config'; 
+        $brlm .= doublebreak;
+        
         $brlm .= "FunctionCall => Mage_Core_Model_Config->__construct() => (end run)";
         $brlm .= doublebreak;
         $brlm .= closediv;
