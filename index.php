@@ -24,7 +24,7 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-define('opendiv', '<div style="border: 1px solid black; padding: 10px; margin-bottom: 20px">');
+define('opendiv', '<div style="border: 1px solid black; padding: 20px; margin-bottom: 20px">');
 define('singlebreak', '<br>');
 define('doublebreak', '<br><br>');
 define('closediv', '</div>');
