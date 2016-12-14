@@ -128,11 +128,6 @@ class Varien_Autoload
     {
     	global $brlm;
     	
-    	$brlm .= opendiv;
-    	
-    	$brlm .= "FunctionCall => Varien_Autoload->autoload() => (start run)";
-    	$brlm .= doublebreak;
-    	
         if ($this->_collectClasses) {
             $this->_arrLoadedClasses[self::$_scope][] = $class;
         }
@@ -144,13 +139,8 @@ class Varien_Autoload
         $classFile.= '.php';
         //echo $classFile;die();
         
-        $brlm .= 'included => ' . $classFile;
+        $brlm .= 'Varien_Autoload::autload() => included => ' . $classFile;
         $brlm .= doublebreak;
-        
-        $brlm .= "FunctionCall => Varien_Autoload->autoload() => (end run)";
-        $brlm .= doublebreak;
-        
-        $brlm .= closediv;
         
         return include $classFile;
     }
